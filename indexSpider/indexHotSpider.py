@@ -27,9 +27,13 @@ def get_page_html(url, headers):
     # 在打印有etree生成的字符串时，中文会变成数字格式，此时可以用
     # print(html.unescape(etree.tostring(content).decode('utf-8')))
 
+    # 排名
     rank = content.xpath("//div[contains(@class,'HotItem-rank')]/text()")
+    # 标题
     title = content.xpath("//h2[contains(@class,'HotItem-title')]/text()")
+    # 链接
     link = content.xpath("//div[contains(@class,'HotItem-content')]/a/@href")
+    # 热度
     hot = content.xpath("//div[contains(@class,'HotItem-metrics')]/text()")
 
     # print(rank)
@@ -52,6 +56,12 @@ def get_page_html(url, headers):
 
 
 def write_to_txt(path, hot_list):
+    """
+    写入到文本
+    :param path:  保存文本路径
+    :param hot_list: 保存列表
+    :return:
+    """
 
     with open(path, "a", encoding="utf-8") as f:
 
@@ -68,6 +78,11 @@ def write_to_html(path, response):
 
 
 def main():
+    """
+
+    :return: 返回一个热门问题的链接
+    """
+
 
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36\
@@ -83,6 +98,9 @@ def main():
 
     write_to_txt(path, result)
 
+    questionList =[]
 
+    for i in result:
+       questionList.append(i["link"])
 
-main()
+    return questionList
