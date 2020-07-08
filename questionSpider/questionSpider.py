@@ -37,18 +37,22 @@ def get_page_html(url, headers):
 
             # print(answersub)
             answerList.append(answersub)
+        try:
+            dic = {
+                "title": questionInfo[0],
+                "url": questionInfo[1],
+                "about": questionInfo[2],
+                "answerCount": questionInfo[3],
+                "commentCount": questionInfo[4],
+                "dateCreated": questionInfo[5],
+                "dateModified": questionInfo[6],
+                "zhihu:followerCount": questionInfo[7],
 
-        dic = {
-            "title": questionInfo[0],
-            "url": questionInfo[1],
-            "about": questionInfo[2],
-            "answerCount": questionInfo[3],
-            "commentCount": questionInfo[4],
-            "dateCreated": questionInfo[5],
-            "dateModified": questionInfo[6],
-            "zhihu:followerCount": questionInfo[7],
+            }
+        except IndexError:
+            print('IndexError')
+            return
 
-        }
         try:
             path = "F:\\data\\%s.txt" % questionInfo[0]
 
